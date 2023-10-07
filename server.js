@@ -5,7 +5,13 @@ const PORT = 5000
 const fileupload = require('./routes/route')
 const {cloudinaryConfig} = require('./config/cloudinaryconfig')
 const path = require('path')
+const cors = require('cors')
 
+app.use(cors({
+    origin:'https://cine-base.vercel.app',
+    methods:'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials:true
+}))
 app.use(express.static(path.resolve(__dirname, 'src/public')));
 app.use(express.json())
 app.use(express.urlencoded({extended: true}));
