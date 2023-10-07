@@ -1,11 +1,12 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
-const PORT = 5000
-const fileupload = require('./routes/route')
+const fileupload = require('./api/route')
 const {cloudinaryConfig} = require('./config/cloudinaryconfig')
 const path = require('path')
 const cors = require('cors')
+const dotenv = require('dotenv')
+dotenv.config()
 
 app.use(cors({
     origin:'https://cine-base.vercel.app',
@@ -26,9 +27,7 @@ app.get('/',(req,res)=>{
 })
 
 //mongodb connection
-const DB = "mongodb+srv://fk28:farhankhan123@cluster0.fq2ibrs.mongodb.net/test"
-
-mongoose.connect(DB , {
+mongoose.connect(process.env.MONGO_URI , {
     useNewUrlParser:true,
     useUnifiedTopology:true
 }).then(()=>{
@@ -37,6 +36,6 @@ mongoose.connect(DB , {
     console.log(err)
 })
 
-app.listen(PORT,()=>{
-    console.log(`listening on port ${PORT}`)
+app.listen(process.env.PORT,()=>{
+    console.log(`listening on port ${process.env.PORT}`)
 })
